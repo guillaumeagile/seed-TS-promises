@@ -9,7 +9,7 @@ const expect = chai.expect;
 const THRESHOLD = 50;
 
 describe('My test suite Cpu Monitor', () => {
-    it('My unit test async', async () => {
+    it('Will alert when value is over threshold', async () => {
         let cpuMonitor = new CpuMonitor(THRESHOLD);
         cpuMonitor.setValue(THRESHOLD + 1);
         let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor);
@@ -18,7 +18,7 @@ describe('My test suite Cpu Monitor', () => {
         await expect(result).to.eventually.equal(true);
     }),
 
-        it('should not alert', async () => {
+        it('Will not alert when value is under threshold', async () => {
             let cpuMonitor = new CpuMonitor(THRESHOLD);
             cpuMonitor.setValue(THRESHOLD - 1);
             let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor);
@@ -31,8 +31,8 @@ describe('My test suite Cpu Monitor', () => {
 
 
 class CpuMonitor {
-    _threshold: number;
-    _value: number;
+    private readonly _threshold: number;
+    private _value: number;
 
     constructor(threshold: number) {
         this._threshold = threshold;
@@ -40,6 +40,10 @@ class CpuMonitor {
 
     setValue(value: number) {
         this._value = value;
+    }
+
+    public hasAlert() : boolean {
+        return this._value > this._threshold;
     }
 
 }
@@ -54,7 +58,7 @@ class ServiceCpuAlert {
     }
 
     hasAlert(): Promise<boolean> {
-        return Promise.resolve(this._cpuMonitor._value > this._cpuMonitor._threshold);
+        return Promise.resolve(this._cpuMonitor.hasAlert());
     }
 
 
