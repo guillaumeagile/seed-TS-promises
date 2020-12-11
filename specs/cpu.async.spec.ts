@@ -6,12 +6,26 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 describe('My test suite Cpu Monitor', () => {
-  it('My unit test async', async () => { // async keyword
-    let serviceCpuAlert = new ServiceCpuAlert();
-    serviceCpuAlert.
-    const myNumber: Promise<number> = Promise.resolve(2); // Yeah, this is really TypeScript code!
-    
-    // Do not forget the 'await'
-    await expect(myNumber).to.eventually.equal(2);
+  it('My unit test async', async () => { 
+    let cpuMonitor = new CpuMonitor();
+    let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor);
+    const result : Promise<boolean> = serviceCpuAlert.hasAlert()
+        
+    await expect(result).to.eventually.equal(true);
   });
 });
+
+class CpuMonitor {
+
+}
+
+class ServiceCpuAlert {
+  hasAlert(): Promise<boolean> {
+    return  Promise.resolve(true);
+  }
+  
+  constructor(cpuMon: CpuMonitor ) {
+  
+    
+  }
+}
