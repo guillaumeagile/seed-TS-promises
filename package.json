@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test0": "mocha",
-    "test": "node --harmony node_modules/mocha/bin/mocha --harmony -r ts-node/register *.spec.ts"
+    "test": "node --harmony node_modules/mocha/bin/mocha --harmony -r ts-node/register specs/*.spec.ts"
   },
   "author": "",
   "license": "ISC"
