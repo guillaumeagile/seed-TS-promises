@@ -26,6 +26,10 @@ describe('My test suite Cpu Monitor', () => {
 
             await expect(result).to.eventually.equal(false);
         })
+    /* TODO: next step create a test with two cpuMonitors */
+    /* that could change the cpuMonitor design */
+    /* cpuMonitor could return a promise */
+    /* so serviceCpuAlert should have SRP to resolve all promises from cpuMonitor*/
 
 });
 
