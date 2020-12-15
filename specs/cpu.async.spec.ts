@@ -2,6 +2,8 @@ import * as chai from 'chai';
 import 'mocha';
 
 import chaiAsPromised = require('chai-as-promised');
+import { ServiceCpuAlert } from './ServiceCpuAlert';
+import { CpuMonitor } from './CpuMonitor';
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -48,38 +50,4 @@ describe('My test suite Cpu Monitor', () => {
 });
 
 
-class CpuMonitor {
-    private readonly _threshold: number;
-    private _value: number;
 
-    constructor(threshold: number) {
-        this._threshold = threshold;
-    }
-
-    setValue(value: number) {
-        this._value = value;
-    }
-
-    public hasAlert(): Promise<boolean> {
-        return Promise.resolve(this._value > this._threshold);
-    }
-
-}
-
-class ServiceCpuAlert {
-
-    promises: Array<Promise<boolean>>;
-
-    constructor(...cpusMonitor: CpuMonitor[]) {
-        this.promises = new Array<Promise<boolean>>();
-        for (let cpu of cpusMonitor) {
-            this.promises.push(cpu.hasAlert());
-        }
-    }
-
-    hasAlert(): Promise<boolean> {
-        return Promise.all(this.promises).then((values) => {
-            return values.reduce((previous, current) => { return previous || current; });
-        });
-    }
-}
