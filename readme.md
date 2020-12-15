@@ -36,3 +36,16 @@ This session has enabled Promises within Chai tests :)
 Taken and improved from https://gist.github.com/ComFreek/712a7d1488326c30f3746dd1530819e1
 
 
+-------------
+
+Memento for kata
+
+- whereby 
+- timer : https://mobti.me/Kata?
+
+- git commands 
+
+```
+git co --track origin/cpuMonitorKata
+```
+

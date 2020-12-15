@@ -60,8 +60,8 @@ class CpuMonitor {
         this._value = value;
     }
 
-    public hasAlert() : boolean {
-        return this._value > this._threshold;
+    public hasAlert() : Promise<boolean> {
+        return Promise.resolve ( this._value > this._threshold );
     }
 
 }
