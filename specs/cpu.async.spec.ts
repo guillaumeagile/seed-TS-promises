@@ -42,7 +42,7 @@ describe('My test suite Cpu Monitor', () => {
 
         const result: Promise<boolean> = serviceCpuAlert.hasAlert()
 
-        await expect(result).to.eventually.equal(false);
+        await expect(result).to.eventually.equal(true);
     })
 
 });
@@ -69,12 +69,20 @@ class CpuMonitor {
 class ServiceCpuAlert {
 
     _cpuMonitor : CpuMonitor;
+    _cpusMonitor : CpuMonitor[];
 
-    constructor(...args: cpuMon: CpuMonitor[]) {
+    constructor(...cpusMonitor: CpuMonitor[]) {
+        this._cpuMonitor = cpusMonitor[0];
+        this._cpusMonitor = cpusMonitor;
     }
 
     hasAlert(): Promise<boolean> {
-        return Promise.resolve(this._cpuMonitor.hasAlert());
+        for (let cpu of this._cpusMonitor) {
+            if (cpu.hasAlert()) {
+                return Promise.resolve(true);
+            }
+        }
+        return Promise.resolve(false);
     }
 
 
