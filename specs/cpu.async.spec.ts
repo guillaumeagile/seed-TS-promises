@@ -68,25 +68,18 @@ class CpuMonitor {
 
 class ServiceCpuAlert {
 
-    _cpuMonitor: CpuMonitor;
-    _cpusMonitor: CpuMonitor[];
-
+    promises: Array<Promise<boolean>>;
 
     constructor(...cpusMonitor: CpuMonitor[]) {
-        this._cpuMonitor = cpusMonitor[0];
-        this._cpusMonitor = cpusMonitor;
+        this.promises = new Array<Promise<boolean>>();
+        for (let cpu of cpusMonitor) {
+            this.promises.push(cpu.hasAlert());
+        }
     }
 
     hasAlert(): Promise<boolean> {
-
-        let promises = new Array<Promise<boolean>>();
-
-        for (let cpu of this._cpusMonitor) {
-            promises.push(cpu.hasAlert());
-        }
-
-       return  Promise.all(promises).then((values) => {
-            return values.reduce((previous, current) => { return previous || current; });            
+        return Promise.all(this.promises).then((values) => {
+            return values.reduce((previous, current) => { return previous || current; });
         });
     }
 }
