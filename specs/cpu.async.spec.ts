@@ -38,7 +38,7 @@ describe('My test suite Cpu Monitor', () => {
         let cpuMonitor2 = new CpuMonitor(THRESHOLD);
         cpuMonitor2.setValue(THRESHOLD + 1);
 
-        let serviceCpuAlert = new ServiceCpuAlert( cpuMonitor, cpuMonitor2 );
+        let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor, cpuMonitor2);
 
         const result: Promise<boolean> = serviceCpuAlert.hasAlert()
 
@@ -60,16 +60,17 @@ class CpuMonitor {
         this._value = value;
     }
 
-    public hasAlert() : Promise<boolean> {
-        return Promise.resolve ( this._value > this._threshold );
+    public hasAlert(): Promise<boolean> {
+        return Promise.resolve(this._value > this._threshold);
     }
 
 }
 
 class ServiceCpuAlert {
 
-    _cpuMonitor : CpuMonitor;
-    _cpusMonitor : CpuMonitor[];
+    _cpuMonitor: CpuMonitor;
+    _cpusMonitor: CpuMonitor[];
+
 
     constructor(...cpusMonitor: CpuMonitor[]) {
         this._cpuMonitor = cpusMonitor[0];
@@ -77,13 +78,15 @@ class ServiceCpuAlert {
     }
 
     hasAlert(): Promise<boolean> {
+
+        let promises = new Array<Promise<boolean>>();
+
         for (let cpu of this._cpusMonitor) {
-            if (cpu.hasAlert()) {
-                return Promise.resolve(true);
-            }
+            promises.push(cpu.hasAlert());
         }
-        return Promise.resolve(false);
+
+       return  Promise.all(promises).then((values) => {
+            return values.reduce((previous, current) => { return previous || current; });            
+        });
     }
-
-
 }
