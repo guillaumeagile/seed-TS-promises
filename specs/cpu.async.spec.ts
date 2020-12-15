@@ -2,8 +2,8 @@ import * as chai from 'chai';
 import 'mocha';
 
 import chaiAsPromised = require('chai-as-promised');
-import { ServiceCpuAlert } from './ServiceCpuAlert';
-import { CpuMonitor } from './CpuMonitor';
+import { ServiceCpuAlert } from '../src/ServiceCpuAlert';
+import { CpuMonitor } from '../src/CpuMonitor';
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -28,10 +28,7 @@ describe('My test suite Cpu Monitor', () => {
 
             await expect(result).to.eventually.equal(false);
         })
-    /* TODO: next step create a test with two cpuMonitors */
-    /* that could change the cpuMonitor design */
-    /* cpuMonitor could return a promise */
-    /* so serviceCpuAlert should have SRP to resolve all promises from cpuMonitor*/
+
 
     it('Two Cpu Monitors will alert when at least one value is over threshold', async () => {
         let cpuMonitor = new CpuMonitor(THRESHOLD);
