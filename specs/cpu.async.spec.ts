@@ -31,6 +31,20 @@ describe('My test suite Cpu Monitor', () => {
     /* cpuMonitor could return a promise */
     /* so serviceCpuAlert should have SRP to resolve all promises from cpuMonitor*/
 
+    it('Two Cpu Monitors will alert when at least one value is over threshold', async () => {
+        let cpuMonitor = new CpuMonitor(THRESHOLD);
+        cpuMonitor.setValue(THRESHOLD - 1);
+
+        let cpuMonitor2 = new CpuMonitor(THRESHOLD);
+        cpuMonitor2.setValue(THRESHOLD + 1);
+
+        let serviceCpuAlert = new ServiceCpuAlert( cpuMonitor, cpuMonitor2 );
+
+        const result: Promise<boolean> = serviceCpuAlert.hasAlert()
+
+        await expect(result).to.eventually.equal(false);
+    })
+
 });
 
 
@@ -56,9 +70,7 @@ class ServiceCpuAlert {
 
     _cpuMonitor : CpuMonitor;
 
-    constructor(cpuMon: CpuMonitor) {
-        this._cpuMonitor = cpuMon;
-
+    constructor(...args: cpuMon: CpuMonitor[]) {
     }
 
     hasAlert(): Promise<boolean> {
