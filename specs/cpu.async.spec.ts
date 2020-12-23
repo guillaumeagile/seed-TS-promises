@@ -9,7 +9,7 @@ chai.use(chaiAsPromised);
 const expect = chai.expect;
 
 
-const THRESHOLD = new Mesures.Temperature(50, Mesures.TemperatureUnit.Celcius);
+const THRESHOLD = new Mesures.Temperature(50, Mesures.TemperatureUnit.Kelvin);
 
 
 describe('THE test suite for Cpu Monitor', () => {
