@@ -5,7 +5,7 @@ import chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
 const expect = chai.expect;
 
-describe('My test suite async', () => {
+describe('Sample test suite async', () => {
   it('My unit test async', async () => { // async keyword
     const myNumber: Promise<number> = Promise.resolve(2); // Yeah, this is really TypeScript code!
     

@@ -1,14 +1,15 @@
+import { Temperature } from "./Temperature";
 
 
 export class CpuMonitor {
-    private readonly _threshold: number;
-    private _value: number;
+    private readonly _threshold: Temperature;
+    private _value: Temperature;
 
-    constructor(threshold: number) {
+    constructor(threshold: Temperature) {
         this._threshold = threshold;
     }
 
-    setValue(value: number) {
+    setValue(value: Temperature) {
         this._value = value;
     }
 
