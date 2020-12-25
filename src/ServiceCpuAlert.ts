@@ -1,10 +1,11 @@
 import { CpuMonitor } from "./CpuMonitor";
+import IExposeAlerts from "./IExposeAlert";
 
 export class ServiceCpuAlert {
 
     private promises: Array<Promise<boolean>>;
 
-    constructor(...cpusMonitor: CpuMonitor[]) {
+    constructor(...cpusMonitor: IExposeAlerts[]) {
         this.promises = new Array<Promise<boolean>>();
         for (let cpu of cpusMonitor) {
             this.promises.push(cpu.hasAlert);
