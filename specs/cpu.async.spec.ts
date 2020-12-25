@@ -18,7 +18,7 @@ describe('THE test suite for Cpu Monitor', () => {
         let cpuMonitor = new CpuMonitor(THRESHOLD);
         cpuMonitor.setValue(THRESHOLD.Add(1));
         let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor);
-        const result: Promise<boolean> = serviceCpuAlert.hasAlert()
+        const result: Promise<boolean> = serviceCpuAlert.hasAlert
 
         await expect(result).to.eventually.equal(true);
     }),
@@ -27,7 +27,7 @@ describe('THE test suite for Cpu Monitor', () => {
             let cpuMonitor = new CpuMonitor(THRESHOLD);
             cpuMonitor.setValue(THRESHOLD.Add( - 1));
             let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor);
-            const result: Promise<boolean> = serviceCpuAlert.hasAlert()
+            const result: Promise<boolean> = serviceCpuAlert.hasAlert
 
             await expect(result).to.eventually.equal(false);
         })
@@ -42,7 +42,7 @@ describe('THE test suite for Cpu Monitor', () => {
 
         let serviceCpuAlert = new ServiceCpuAlert(cpuMonitor, cpuMonitor2);
 
-        const result: Promise<boolean> = serviceCpuAlert.hasAlert()
+        const result: Promise<boolean> = serviceCpuAlert.hasAlert
 
         await expect(result).to.eventually.equal(true);
     })

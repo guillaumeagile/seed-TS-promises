@@ -13,7 +13,7 @@ export class CpuMonitor {
         this._value = value;
     }
 
-    public hasAlert(): Promise<boolean> {
+    public get hasAlert(): Promise<boolean> {
         return Promise.resolve(this._value > this._threshold);
     }
 
