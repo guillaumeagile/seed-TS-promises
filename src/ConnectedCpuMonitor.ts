@@ -1,6 +1,5 @@
 import IExposeAlerts from "./IExposeAlert";
 import { Temperature, TemperatureUnit } from "./Temperature";
-//import * as fetch from "../node_modules/node-fetch/";
 
 async function http(
     request: RequestInfo
@@ -26,7 +25,9 @@ export default class ConnectedCpuMonitor implements IExposeAlerts {
             } );
     }
 
-
+    //TODO: refactor this duplicated code (with CpuMonitor) 
+    // and restore SRP (children class responsible for getting the value, base class responsible for the business, in order to avoid Anemic Object again?)
+    
     public get hasAlert(): Promise<boolean> {
         return this.getValue().then( (value) => { return  (value.valueKelvin > this._threshold.valueKelvin); });        
     }
